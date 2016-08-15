@@ -3,6 +3,7 @@
  * Plugin Name: Isotope Karol
  * Plugin URI: http://www.karolszczesny.com
  * Description: Plugin korzysta z Jquery isotope i wyświetla masonary listę elementów. Wystarczy użyć shortcode [isotopeshorcode]
+ * atrytuby to ( kategorie-filtr = "x" kategorie= "slug"  )
  * Version: 1.0.0
  * Author: Karol Szczesny
  * Author URI: http://www.karolszczesny.com
@@ -41,7 +42,14 @@ add_action( 'wp_enqueue_scripts', 'add_isotope' );
 
 
 
-function my_isotope_func() {
+function my_isotope_func($atts) {
+	
+
+ $pull_quote_atts = shortcode_atts( array(
+        'kategorie-filtr' => '10', //default attr 
+        'kategorie' => 'podroze', //defaul attr
+    ), $atts );
+
 	ob_start();
 	?> 
 
@@ -60,14 +68,37 @@ function my_isotope_func() {
             
         
         
-        'include'                => array('18', '11'),
-        
+     //   'include'                => array('10', '11'), //include category you want
+       'taxonomy'               => ( $pull_quote_atts[ 'kategorie-filtr' ] ),
+      //  'orderby'                => 'name',
+      //  'order'                  => 'ASC',
+      //  'hide_empty'             => true,
+      // 'include'                => array(),
+      //  'exclude'                => array(),
+      //   'exclude_tree'           => array(),
+      //   'number'                 => '',
+      //   'offset'                 => '',
+      //   'fields'                 => 'all',
+      //  'name'                   => '',
+      //  'slug'                   => 'podroze',
+        'hierarchical'           => true,
+      //  'search'                 => '',
+      //  'name__like'             => '',
+      //  'description__like'      => '',
+      //  'pad_counts'             => false,
+      //  'get'                    => '',
+      //  'child_of'               => 0,
+        'parent'                 => ( $pull_quote_atts[ 'kategorie-filtr' ] ),
+      //  'childless'              => false,
+      //  'cache_domain'           => 'core',
+      //  'update_term_meta_cache' => true,
+      // 'meta_query'             => ''
 
         ));
    
 
 
-		 // get all categories, but you can use any taxonomy
+		 
 		$count = count($terms); //How many are they?
 		if ( $count > 0 ){  //If there are more than 0 terms
 			foreach ( $terms as $term ) {  //for each term:
@@ -81,7 +112,10 @@ function my_isotope_func() {
 <?php
 $args = array (
 	'post_type'              => 'portfolio',
-	'portfolio-type'          =>  'organizacja-kros , znani-i-mniej-znani',
+	  'portfolio-type' =>   ( $pull_quote_atts[ 'kategorie' ] ),
+	  
+	   'post_parent'  => 0,
+	   'include_children' => true,  
 	'posts_per_page'         => '50',
 );
  $the_query = new WP_Query( $args ); //Check the WP_Query docs to see how you can limit which posts to display ?>
