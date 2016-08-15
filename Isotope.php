@@ -55,10 +55,15 @@ function my_isotope_func() {
 	<?php 
 
 
-    $terms = get_terms( array( 
-    'taxonomy' => 'portfolio-type',
-    'parent'   => 0
-) );
+    $terms = get_terms( 'portfolio-type',array(
+   
+            
+        
+        
+        'include'                => array('18', '11'),
+        
+
+        ));
    
 
 
