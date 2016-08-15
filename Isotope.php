@@ -53,7 +53,16 @@ function my_isotope_func() {
 <ul id="filters">
     <li><a href="#" data-filter="*" class="selected">Wszystko</a></li>
 	<?php 
-		$terms = get_terms("portfolio-type"); // get all categories, but you can use any taxonomy
+
+
+    $terms = get_terms( array( 
+    'taxonomy' => 'portfolio-type',
+    'parent'   => 0
+) );
+   
+
+
+		 // get all categories, but you can use any taxonomy
 		$count = count($terms); //How many are they?
 		if ( $count > 0 ){  //If there are more than 0 terms
 			foreach ( $terms as $term ) {  //for each term:
@@ -64,7 +73,13 @@ function my_isotope_func() {
 	?>
 </ul>
 
-<?php $the_query = new WP_Query( array( 'post_type' => 'portfolio' , 'posts_per_page=50') ); //Check the WP_Query docs to see how you can limit which posts to display ?>
+<?php
+$args = array (
+	'post_type'              => 'portfolio',
+	'portfolio-type'          =>  'organizacja-kros , znani-i-mniej-znani',
+	'posts_per_page'         => '50',
+);
+ $the_query = new WP_Query( $args ); //Check the WP_Query docs to see how you can limit which posts to display ?>
 <?php if ( $the_query->have_posts() ) : ?>
     <div id="isotope-list">
     <?php while ( $the_query->have_posts() ) : $the_query->the_post(); 
