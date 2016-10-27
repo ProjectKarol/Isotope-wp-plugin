@@ -6,7 +6,7 @@ Tested:4.5
 == Description ==
 Simple plugin displaying content in masonry style. using isotope scripts.
 TO use add atrituttes to shorcode 
-[isotopeshorcode kategorie-filtr = "filter caterry ID " kategorie= "category slug" ]
+[isotopeshorcode kategorie-filtr = "filter caterry ID " kategorie= "category slug" 'post-type'='slug']
 
 == To do: ==
 Add admin menu 
@@ -26,3 +26,7 @@ Make shortcode more simpler
 **Version 1.0**
 
 * Initial release
+
+**Version 1.0.1**
+
+*Added ability to defain post type in shortcode*
