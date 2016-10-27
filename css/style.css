@@ -1,7 +1,8 @@
+/* ---- Filter---- */
 #filters{
   clear: both;
   text-align: center;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 
 #filters li {
@@ -14,10 +15,26 @@
 }
 
 #filters li a:hover, #filters li a.selected {
-    border-top: 4px solid #ff4800;
+    border: 2px solid #000000;
+   
+    padding: 5px 10px 5px 10px;
+}
+
+@media only screen and (max-width: 880px) {
+ 
+#filters {
+  margin: 0 auto;
+}
+
+ #filters li a:hover, #filters li a.selected {
+    border: 2px solid #000000;
+    padding: 1px;
+    margin: 0 auto;
 }
 
 
+
+}
 
 /* ---- grid ---- */
 
@@ -70,7 +87,7 @@ padding: 0.25%;
     top: 30px;
     left: 15px;
     padding-right: 10px;
-    color: #ff4800;
+    color: #ff0000;
     font-size: 1.5em;
     font-weight: 700;
 }

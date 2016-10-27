@@ -3,7 +3,7 @@
  * Plugin Name: Isotope Karol
  * Plugin URI: http://www.karolszczesny.com
  * Description: Plugin korzysta z Jquery isotope i wyświetla masonary listę elementów. Wystarczy użyć shortcode [isotopeshorcode]
- * atrytuby to ( kategorie-filtr = "x" kategorie= "slug"  )
+ * atrytuby to ( kategorie-filtr = "x" kategorie= "slug" 'post-type'='slug' )
  * Version: 1.0.0
  * Author: Karol Szczesny
  * Author URI: http://www.karolszczesny.com
@@ -48,6 +48,7 @@ function my_isotope_func($atts) {
  $pull_quote_atts = shortcode_atts( array(
         'kategorie-filtr' => '10', //default attr 
         'kategorie' => 'podroze', //defaul attr
+        'post-type' => 'projekt', //default post type to change
     ), $atts );
 
 	ob_start();
@@ -63,7 +64,7 @@ function my_isotope_func($atts) {
 	<?php 
 
 
-    $terms = get_terms( 'portfolio-type',array(
+    $terms = get_terms( 'projekt_kat',array(
    
             
         
@@ -111,8 +112,8 @@ function my_isotope_func($atts) {
 
 <?php
 $args = array (
-	'post_type'              => 'portfolio',
-	  'portfolio-type' =>   ( $pull_quote_atts[ 'kategorie' ] ),
+	'post_type'              => ( $pull_quote_atts[ 'post-type' ] ),
+	  'projekt_kat' =>   ( $pull_quote_atts[ 'kategorie' ] ),
 	  
 	   'post_parent'  => 0,
 	   'include_children' => true,  
@@ -122,7 +123,7 @@ $args = array (
 <?php if ( $the_query->have_posts() ) : ?>
     <div id="isotope-list">
     <?php while ( $the_query->have_posts() ) : $the_query->the_post(); 
-	$termsArray = get_the_terms( get_the_ID(), "portfolio-type" );  //Get the terms for this particular item
+	$termsArray = get_the_terms( get_the_ID(), "projekt_kat" );  //Get the terms for this particular item
 	$termsString = ""; //initialize the string that will contain the terms
 		foreach ( $termsArray as $term ) { // for each term 
 			$termsString .= $term->slug.' '; //create a string that has all the slugs 
