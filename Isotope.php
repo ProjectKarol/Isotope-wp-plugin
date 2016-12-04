@@ -2,24 +2,19 @@
 /**
  * Plugin Name: Isotope Karol
  * Plugin URI: http://www.karolszczesny.com
- * Description: Plugin korzysta z Jquery isotope i wyświetla masonary listę elementów. Wystarczy użyć shortcode [isotopeshorcode]
- * atrytuby to ( kategorie-filtr = "x" kategorie= "slug" 'post-type'='slug' )
- * Version: 1.0.0
+ * Description: Plugin use Jquery isotope to display masonry list. Use shortcode [isotopeshorcode]
+  atributt is( post-type='slug'  post-category= "slug" post-category-filter = "slug" )
+ * Version: 1.0.2
  * Author: Karol Szczesny
  * Author URI: http://www.karolszczesny.com
  * License: GPL2
  */
-/*
-echo '<link rel="stylesheet" href="' . plugins_url('isotope/css/style.css') . '" type="css" />';
-// Register Script
-function isotope_plugin_scripts() {
-    wp_register_script( 'isotope', plugins_url('script/script.js', __FILE__), '1.0.0',true  ); 
-    wp_enqueue_script( 'isotope' );
-     wp_register_script( 'isotope.pkgd',  plugin_dir_url( __FILE__ ) . 'script/isotope.pkgd.js' );
-    wp_enqueue_script( 'isotope.pkgd' );
+
+
+//* Prevent direct access to the plugin
+if ( ! defined( 'ABSPATH' ) ) {
+    die( __( 'Sorry, you are not allowed to access this page directly.', 'genesis-simple-share' ) );
 }
-add_action( 'wp_enqueue_scripts', 'isotope_plugin_scripts' );
-*/
 
 function my_isotope_style () {
 wp_register_style( 'isotope', plugins_url('isotope/css/style.css')  );
@@ -46,9 +41,15 @@ function my_isotope_func($atts) {
 	
 
  $pull_quote_atts = shortcode_atts( array(
-        'kategorie-filtr' => '10', //default attr 
-        'kategorie' => 'podroze', //defaul attr
-        'post-type' => 'projekt', //default post type to change
+       
+        /* Basic setting to display post type + category */
+        'post-type' => 'post', //default post type to change
+        'post-category' => 'kategoria', //default post categoryy assingned for filterss
+         
+         /*filters attributes */
+         'post-category-filter' => '', // for filtering 
+         // 'kategorie-filtr' => '15', //default attr 
+
     ), $atts );
 
 	ob_start();
@@ -64,7 +65,7 @@ function my_isotope_func($atts) {
 	<?php 
 
 
-    $terms = get_terms( 'projekt_kat',array(
+    $terms = get_terms( ( $pull_quote_atts[ 'post-category' ] ),array(
    
             
         
@@ -81,15 +82,15 @@ function my_isotope_func($atts) {
       //   'offset'                 => '',
       //   'fields'                 => 'all',
       //  'name'                   => '',
-      //  'slug'                   => 'podroze',
-        'hierarchical'           => true,
+        'slug'                   => ( $pull_quote_atts[ 'post-category-filter' ] ),
+      //  'hierarchical'           => true,
       //  'search'                 => '',
       //  'name__like'             => '',
       //  'description__like'      => '',
       //  'pad_counts'             => false,
       //  'get'                    => '',
       //  'child_of'               => 0,
-        'parent'                 => ( $pull_quote_atts[ 'kategorie-filtr' ] ),
+      //    'parent'                 => ( $pull_quote_atts[ 'kategorie-filtr' ] ),
       //  'childless'              => false,
       //  'cache_domain'           => 'core',
       //  'update_term_meta_cache' => true,
@@ -112,18 +113,18 @@ function my_isotope_func($atts) {
 
 <?php
 $args = array (
-	'post_type'              => ( $pull_quote_atts[ 'post-type' ] ),
-	  'projekt_kat' =>   ( $pull_quote_atts[ 'kategorie' ] ),
+	'post_type'    =>   ( $pull_quote_atts[ 'post-type' ] ),
+	( $pull_quote_atts[ 'post-category' ] )    =>   ( $pull_quote_atts[ 'post-category-filter' ] ),
 	  
-	   'post_parent'  => 0,
-	   'include_children' => true,  
-	'posts_per_page'         => '50',
+	   'post_parent'         => 0,
+	   'include_children'    => true,  
+	   'posts_per_page'      => '50',
 );
  $the_query = new WP_Query( $args ); //Check the WP_Query docs to see how you can limit which posts to display ?>
 <?php if ( $the_query->have_posts() ) : ?>
     <div id="isotope-list">
     <?php while ( $the_query->have_posts() ) : $the_query->the_post(); 
-	$termsArray = get_the_terms( get_the_ID(), "projekt_kat" );  //Get the terms for this particular item
+	$termsArray = get_the_terms( get_the_ID(), ( $pull_quote_atts[ 'post-category' ] ) );  //Get the terms for this particular item
 	$termsString = ""; //initialize the string that will contain the terms
 		foreach ( $termsArray as $term ) { // for each term 
 			$termsString .= $term->slug.' '; //create a string that has all the slugs 

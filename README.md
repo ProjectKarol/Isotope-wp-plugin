@@ -1,17 +1,23 @@
 # === Isotope-wp-plugin ===
 Contributors: Karol Szczesny
 Tags: isotope, masonary
-Tested:4.5
+Tested:4.6
 
 == Description ==
 Simple plugin displaying content in masonry style. using isotope scripts.
 TO use add atrituttes to shorcode 
-[isotopeshorcode kategorie-filtr = "filter caterry ID " kategorie= "category slug" 'post-type'='slug']
+[isotopeshorcode post-type=''  post-category= "" post-category-filter = ""]
+
+Shortcode attributes 
+post-type= use slug of post type you want to use. (default is "post")
+post-category= use category slug of your post type ** requiered**
+post-category-filter= for displaing specyfic category item 
 
 == To do: ==
 Add admin menu 
 Clear and impove code
 Make shortcode more simpler 
+More Sorting options
 
 
 
@@ -28,5 +34,10 @@ Make shortcode more simpler
 * Initial release
 
 **Version 1.0.1**
-
 *Added ability to defain post type in shortcode*
+
+**Version 1.0.2**
+
+- Clean up code
+- change shortcode attribute ( more simlper)
+
