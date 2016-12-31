@@ -136,13 +136,14 @@ $args = array (
            <?php if ( has_post_thumbnail() ) {
 
 ?><a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>">
+<h4> <?php the_title(); ?></h4> 
   <img src="<?php the_post_thumbnail_url(); ?>"/>
-  </a><h4><?php the_title(); ?></h4> <?php
+ </a>  <?php
 } else { ?>
 
 <a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>">
-<img src="<?php echo plugin_dir_url( __FILE__ ) . 'images/default-image.jpg'; ?>">
 </a><h4><?php the_title(); ?></h4> 
+<img src="<?php echo plugin_dir_url( __FILE__ ) . 'images/default-image.jpg'; ?>">
 
 <?php } ?>
 

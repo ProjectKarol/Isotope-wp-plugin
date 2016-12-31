@@ -1,32 +1,46 @@
 /* ---- Filter---- */
-#filters{
+#filtersks{
   clear: both;
   text-align: center;
   margin-bottom: 15px;
 }
 
-#filters li {
-    display: inline;
+#filtersks li {
+   display: inline;
     padding: 0 10px;
+    background-color: rgba(0, 0, 0, 0);
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+    border-radius: 0;
+    font-family: "josefin sans",sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    line-height: 21px;
+    text-transform: uppercase;
+    width: auto;
+    -moz-transition: all 0.2s ease-out 0s;
+    -webkit-transition: all 0.2s ease-out 0s;
+    transition: all 0.2s ease-out 0s;
 }
 
-#filters li a {
+#filtersks li a {
     text-decoration: none;
 }
 
-#filters li a:hover, #filters li a.selected {
-    border: 2px solid #000000;
-   
-    padding: 5px 10px 5px 10px;
+#filtersks li a:hover, #filtersks li a.selected {
+    border: none;
+    border-bottom: 2px solid #333!important;
+    color: #de1f13;
 }
 
 @media only screen and (max-width: 880px) {
  
-#filters {
+#filtersks {
   margin: 0 auto;
 }
 
- #filters li a:hover, #filters li a.selected {
+ #filtersks li a:hover, #filtersks li a.selected {
     border: 2px solid #000000;
     padding: 1px;
     margin: 0 auto;
@@ -69,7 +83,7 @@ padding: 0.25%;
   margin-bottom: 1%;
 }
 
-.item img:hover {
+#isotope-list > div a > img:hover {
         transform: scale(1.09);
     -moz-transform: scale(1.09);
     -webkit-transform: scale(1.09);
@@ -82,14 +96,13 @@ padding: 0.25%;
 
 #isotope-list  div h4 {
       white-space: pre-wrap;
-    position: absolute;
+    position: relative;
     z-index: 9;
-    top: 30px;
+    top: 60px;
     left: 15px;
     padding-right: 10px;
-    color: #ff0000;
-    font-size: 1.5em;
-    font-weight: 700;
+    
+
 }
 
 @media only screen and (max-width: 880px) {
